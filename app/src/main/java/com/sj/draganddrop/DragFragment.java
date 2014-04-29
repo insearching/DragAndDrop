@@ -55,8 +55,6 @@ public class DragFragment extends Fragment {
     class DragEventListener implements View.OnDragListener {
 
         Context context;
-        View lastView;
-        boolean isInside = true;
 
         public DragEventListener() {
             context = getActivity();
@@ -64,20 +62,14 @@ public class DragFragment extends Fragment {
 
         @Override
         public boolean onDrag(View v, DragEvent event) {
-            final int action = event.getAction();
-
-            switch (action) {
-
+            switch (event.getAction()) {
                 case DragEvent.ACTION_DRAG_ENTERED:
                     Log.d(TAG, "ACTION_DRAG_ENTERED");
-                    lastView = v;
-                    isInside = true;
                     v.setBackgroundColor(getResources().getColor(R.color.darker_gray));
                     break;
 
                 case DragEvent.ACTION_DRAG_EXITED:
                     Log.d(TAG, "ACTION_DRAG_EXITED");
-                    isInside = false;
                     v.setBackgroundColor(getResources().getColor(R.color.gray));
                     break;
 
@@ -103,9 +95,7 @@ public class DragFragment extends Fragment {
                     } else {
                         Toast.makeText(context, "The drop didn't work.", Toast.LENGTH_LONG);
                     }
-
                     break;
-
             }
             return true;
         }
